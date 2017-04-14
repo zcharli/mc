@@ -1,3 +1,3 @@
-# Protorype: Map Chat (MC)
+# Prototype: Map Chat (MC)
 
 To be continued...

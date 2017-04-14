@@ -1,1 +1,3 @@
-# mc
+# Protorype: Map Chat (MC)
+
+To be continued...

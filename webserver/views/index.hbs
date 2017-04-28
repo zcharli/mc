@@ -1,2 +1,60 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div id="map"></div>
+
+<!-- TEST -->
+
+<script>
+  // This example requires the Drawing library. Include the libraries=drawing
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing">
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+
+    var drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_CENTER,
+        drawingModes: ['polyline']
+      },
+    });
+    drawingManager.setMap(map);
+
+    // place marker to try and ensure is in your polyline
+    var marker = new google.maps.Marker({
+      position: {lat: -34.220887, lng: 149.72168},
+      map: map,
+      title: 'Hello World!'
+    });
+
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', function(google_polygon) {          
+	      
+      var polygon = Polygon(google_polygon);
+
+      $.ajax({
+        type: "POST",
+        url: "/NewRoom",
+        data: JSON.stringify(polygon),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
+          console.log("data received");
+          console.dir(data);
+          window.data = data;
+        }
+      });
+  
+    });
+  }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPCzlmE35r-MQVhhdwyHD3skmhJfrf4Z0&libraries=drawing&callback=initMap"
+         async defer>
+</script>
+

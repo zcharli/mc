@@ -61,3 +61,5 @@ frontend/testem.log
 
 ## Static web server
 static-webserver/node_modules
+node_modules/*
+webserver/node_modules
